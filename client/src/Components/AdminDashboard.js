@@ -1,0 +1,166 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import * as ENV from "../config";
+
+const STATUS_OPTIONS = ["Pending", "Delivered"];
+
+const AdminDashboard = () => {
+  const navigate = useNavigate();
+  const role     = useSelector((state) => state.users.user?.role);
+  const email    = useSelector((state) => state.users.user?.email);
+
+  const [tab,     setTab]     = useState("orders");
+  const [orders,  setOrders]  = useState([]);
+  const [users,   setUsers]   = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!email)           { navigate("/login"); return; }
+    if (role !== "admin") { navigate("/");      return; }
+  }, [email, role]);
+
+  useEffect(() => {
+    if (role !== "admin") return;
+    Promise.all([
+      axios.get(`${ENV.SERVER_URL}/admin/orders`),
+      axios.get(`${ENV.SERVER_URL}/admin/users`),
+    ]).then(([ordersRes, usersRes]) => {
+      setOrders(ordersRes.data);
+      setUsers(usersRes.data);
+      setLoading(false);
+    }).catch((err) => {
+      console.error(err);
+      setLoading(false);
+    });
+  }, [role]);
+
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      const { data } = await axios.put(
+        `${ENV.SERVER_URL}/admin/orders/${orderId}/status`,
+        { status: newStatus }
+      );
+      setOrders((prev) =>
+        prev.map((o) => o._id === orderId ? { ...o, status: data.order.status } : o)
+      );
+    } catch (err) {
+      alert("Failed to update status.");
+    }
+  };
+
+  if (loading) return <div className="orders-loading">Loading dashboard…</div>;
+
+  const totalRevenue = orders.reduce((s, o) => s + o.total, 0);
+
+  return (
+    <div className="admin-wrap">
+      <div className="admin-header">
+        <h1>Admin Dashboard</h1>
+        <button className="back-btn" onClick={() => navigate("/")}>← Back to Shop</button>
+      </div>
+
+      <div className="admin-stats">
+        <div className="admin-stat-card">
+          <div className="asc-num">{orders.length}</div>
+          <div className="asc-label">Total Orders</div>
+        </div>
+        <div className="admin-stat-card">
+          <div className="asc-num">{users.length}</div>
+          <div className="asc-label">Total Users</div>
+        </div>
+        <div className="admin-stat-card">
+          <div className="asc-num">{totalRevenue.toFixed(3)}</div>
+          <div className="asc-label">Revenue (OMR)</div>
+        </div>
+        <div className="admin-stat-card">
+          <div className="asc-num">{orders.filter((o) => o.status === "Pending").length}</div>
+          <div className="asc-label">Pending Orders</div>
+        </div>
+      </div>
+
+      <div className="admin-tabs">
+        <button className={`admin-tab ${tab === "orders" ? "active" : ""}`} onClick={() => setTab("orders")}>Orders</button>
+        <button className={`admin-tab ${tab === "users"  ? "active" : ""}`} onClick={() => setTab("users")}>Users</button>
+      </div>
+
+      {tab === "orders" && (
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order._id}>
+                  <td className="order-id-cell">#{order._id.slice(-6).toUpperCase()}</td>
+                  <td>{order.userEmail}</td>
+                  <td>{order.items.map((i) => `${i.emoji} ${i.name}`).join(", ")}</td>
+                  <td><strong>{order.total.toFixed(3)} OMR</strong></td>
+                  <td>{new Date(order.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</td>
+                  <td>
+                    <select
+                      className={`status-select ${order.status === "Delivered" ? "delivered" : "pending"}`}
+                      value={order.status}
+                      onChange={(e) => handleStatusChange(order._id, e.target.value)}
+                    >
+                      {STATUS_OPTIONS.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {tab === "users" && (
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr key={u._id}>
+                  <td>
+                    <div className="admin-avatar">
+                      {u.profilePic
+                        ? <img src={`${ENV.SERVER_URL}/uploads/${u.profilePic}`} alt="avatar" className="admin-avatar-img" />
+                        : u.name?.charAt(0).toUpperCase()
+                      }
+                    </div>
+                  </td>
+                  <td>{u.name}</td>
+                  <td>{u.email}</td>
+                  <td>
+                    <span className={`role-badge ${u.role === "admin" ? "admin" : "user"}`}>
+                      {u.role === "admin" ? "Admin" : "User"}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AdminDashboard;
