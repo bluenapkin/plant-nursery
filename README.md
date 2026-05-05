@@ -68,12 +68,12 @@ App opens at **http://localhost:3000**
 
 ---
 
-## 🔑 Seed Accounts (ready to use)
+## 🔑 Accounts (ready to use)
 
 | Name | Email | Password |
 |------|-------|----------|
-| Sara Al-Harthi | sara@greenleaf.om | 12345 |
-| Mohammed Al-Balushi | mohammed@greenleaf.om | 12345 |
+| nawaf | nawaf1@gmail.com | 12345 |
+| 
 
 ---
 
