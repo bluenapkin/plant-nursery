@@ -160,7 +160,7 @@ plant-nursery/
 
 | Name | Role |
 |------|------|
-| **Nawaf Abdullah** | Full Stack Developer |
+| **Nawaf** | Full Stack Developer |
 | **Abdullah** | Full Stack Developer |
 | **Nasser** | Full Stack Developer |
 
