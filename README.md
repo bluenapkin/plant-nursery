@@ -5,55 +5,57 @@ A full-stack MERN application for plant lovers in Oman. Browse rare fruit trees,
 ---
 
 ## Project Structure
+
+```plaintext
 plant-nursery/
-├── client/                       ← React frontend (port 3000)
+├── client/                       
 │   ├── public/
 │   │   └── index.html
 │   ├── src/
-│   │   ├── App.js                ← Router + layout
-│   │   ├── App.css               ← Global styles
-│   │   ├── index.js              ← Entry + Redux Provider + PersistGate
-│   │   ├── config.js             ← Environment variables
-│   │   ├── ExampleData.js        ← Seed data
+│   │   ├── App.js                
+│   │   ├── App.css               
+│   │   ├── index.js              
+│   │   ├── config.js             
 │   │   ├── Components/
-│   │   │   ├── Header.js         ← Navbar with logo
-│   │   │   ├── Footer.js         ← Site footer
-│   │   │   ├── Login.js          ← Login page
-│   │   │   ├── Register.js       ← Register page with validation
-│   │   │   ├── Home.js           ← Shop page with cart
-│   │   │   ├── Posts.js          ← Community posts feed
-│   │   │   ├── Profile.js        ← User profile page
-│   │   │   ├── Orders.js         ← User orders history
-│   │   │   ├── Checkout.js       ← Checkout + payment form
-│   │   │   ├── ProductDetail.js  ← Plant detail page with care tips
-│   │   │   ├── EditProfile.js    ← Edit name, password, photo
-│   │   │   ├── AdminDashboard.js ← Admin orders + users management
-│   │   │   ├── About.js          ← About page
-│   │   │   └── ProtectedRoute.js ← Route guard
+│   │   │   ├── Header.js         
+│   │   │   ├── Footer.js         
+│   │   │   ├── Login.js          
+│   │   │   ├── Register.js       
+│   │   │   ├── Home.js           
+│   │   │   ├── Posts.js          
+│   │   │   ├── Profile.js        
+│   │   │   ├── Orders.js         
+│   │   │   ├── Checkout.js       
+│   │   │   ├── ProductDetail.js  
+│   │   │   ├── EditProfile.js    
+│   │   │   ├── AdminDashboard.js 
+│   │   │   ├── About.js          
+│   │   │   └── ProtectedRoute.js 
 │   │   ├── Features/
-│   │   │   ├── UserSlice.js      ← Auth Redux slice
-│   │   │   └── PlantSlice.js     ← Posts Redux slice
+│   │   │   ├── UserSlice.js      
+│   │   │   └── PlantSlice.js     
 │   │   ├── Store/
-│   │   │   └── store.js          ← Redux store + redux-persist
+│   │   │   └── store.js          
 │   │   ├── Tests/
-│   │   │   ├── About.test.jsx    ← Vitest unit tests
-│   │   │   └── setup.js          ← Testing setup
+│   │   │   ├── About.test.jsx    
+│   │   │   └── setup.js          
 │   │   └── Validations/
-│   │       └── UserValidations.js ← Yup schema
-│   ├── .env                      ← Client environment variables
-│   ├── vitest.config.js          ← Vitest configuration
+│   │       └── UserValidations.js
+│   ├── .env                      
+│   ├── vitest.config.js          
 │   └── package.json
 │
-└── server/                       ← Express backend (port 3001)
-├── Models/
-│   ├── UserModel.js          ← User schema (name, email, password, role, profilePic)
-│   ├── OrderModel.js         ← Order schema (items, total, status, date)
-│   └── PostModel.js          ← Post schema (message, category, likes)
-├── uploads/                  ← Profile picture uploads
-├── config.js                 ← Environment variables
-├── index.js                  ← All API routes
-├── .env                      ← Server environment variables
-└── package.json
+└── server/                       
+    ├── Models/
+    │   ├── UserModel.js          
+    │   ├── OrderModel.js         
+    │   └── PostModel.js          
+    ├── uploads/                  
+    ├── config.js                 
+    ├── index.js                  
+    ├── .env                      
+    └── package.json
+```
 
 ---
 
