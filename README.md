@@ -1,168 +1,169 @@
-# غرس | Ghars — Plant Nursery App
+<div align="center">
 
-A full-stack MERN application for plant lovers in Oman. Browse rare fruit trees, share plant updates, and manage orders — all in one place.
+<img src="client/src/img/logo.png" width="120" />
 
----
+# غرس | Ghars
 
-## Project Structure
+### Premium Plant Nursery — Oman 🌿
 
-```plaintext
-plant-nursery/
-├── client/                       
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── App.js                
-│   │   ├── App.css               
-│   │   ├── index.js              
-│   │   ├── config.js             
-│   │   ├── Components/
-│   │   │   ├── Header.js         
-│   │   │   ├── Footer.js         
-│   │   │   ├── Login.js          
-│   │   │   ├── Register.js       
-│   │   │   ├── Home.js           
-│   │   │   ├── Posts.js          
-│   │   │   ├── Profile.js        
-│   │   │   ├── Orders.js         
-│   │   │   ├── Checkout.js       
-│   │   │   ├── ProductDetail.js  
-│   │   │   ├── EditProfile.js    
-│   │   │   ├── AdminDashboard.js 
-│   │   │   ├── About.js          
-│   │   │   └── ProtectedRoute.js 
-│   │   ├── Features/
-│   │   │   ├── UserSlice.js      
-│   │   │   └── PlantSlice.js     
-│   │   ├── Store/
-│   │   │   └── store.js          
-│   │   ├── Tests/
-│   │   │   ├── About.test.jsx    
-│   │   │   └── setup.js          
-│   │   └── Validations/
-│   │       └── UserValidations.js
-│   ├── .env                      
-│   ├── vitest.config.js          
-│   └── package.json
-│
-└── server/                       
-    ├── Models/
-    │   ├── UserModel.js          
-    │   ├── OrderModel.js         
-    │   └── PostModel.js          
-    ├── uploads/                  
-    ├── config.js                 
-    ├── index.js                  
-    ├── .env                      
-    └── package.json
-```
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
+![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC?style=for-the-badge&logo=redux)
+![Node](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb)
+
+</div>
 
 ---
 
-## Getting Started
+## 📖 About
 
-### 1. Start the Backend Server
+**Ghars (غرس)** is a full-stack MERN plant nursery app built for Oman.
+Browse rare fruit trees, share plant updates with the community, and manage your orders — all in one place.
 
+---
+
+## 🚀 Getting Started
+
+**1. Start the Backend**
 ```bash
 cd server
 npm install
 node index.js
 ```
+> Server runs at `http://localhost:3001`
 
-Server runs at **http://localhost:3001**
-
-### 2. Start the React Frontend
-
-Open a new terminal:
-
+**2. Start the Frontend**
 ```bash
 cd client
 npm install
 npm start
 ```
-
-App opens at **http://localhost:3000**
+> App opens at `http://localhost:3000`
 
 ---
 
-## Accounts (ready to use)
+## 🔑 Test Account
 
 | Name | Email | Password | Role |
 |------|-------|----------|------|
-| Nawaf | nawaf1@gmail.com | 12345 | Admin |
+| Nawaf | nawaf1@gmail.com | 12345 | 👑 Admin |
 
 ---
 
-## Features
+## ✨ Features
 
-| Feature | Details |
-|---------|---------|
-| **Authentication** | Register, login, logout with bcrypt password hashing |
-| **Protected Routes** | Redirects to /login if not authenticated |
-| **Persist Login** | Redux-persist keeps user logged in after refresh |
-| **Plant Shop** | Browse 12 plants with search and category filter |
-| **Product Detail** | Full plant page with care guide (water, sun, temp, difficulty) |
-| **Cart** | Add, remove, update quantity — saved in localStorage |
-| **Checkout** | Separate checkout page with order summary + payment form |
-| **Orders** | View order history with status (Pending / Delivered) |
-| **Community Posts** | Create, like, and delete plant posts |
-| **Profile** | View stats, recent posts, orders count |
-| **Edit Profile** | Update name, password, and profile picture (Multer upload) |
-| **Admin Dashboard** | View all users and orders, update order status |
-| **Environment Variables** | dotenv on server, REACT_APP_ on client |
-| **Unit Testing** | Vitest + React Testing Library for component testing |
-| **OMR Currency** | All prices in Omani Riyals (3 decimal places) |
+| | Feature | Description |
+|-|---------|-------------|
+| 🔐 | **Authentication** | Register & login with bcrypt hashing |
+| 🛡️ | **Protected Routes** | Redirects to login if not authenticated |
+| 💾 | **Persist Login** | Stays logged in after page refresh |
+| 🌿 | **Plant Shop** | 12 plants with search & category filter |
+| 🪴 | **Product Detail** | Care guide with water, sun & difficulty |
+| 🛒 | **Cart** | Add, remove, update quantity |
+| 💳 | **Checkout** | Order summary + payment form |
+| 📦 | **Orders** | History with Pending / Delivered status |
+| 💬 | **Community Posts** | Create, like & delete plant posts |
+| 👤 | **Profile** | Stats, posts, orders in one page |
+| ✏️ | **Edit Profile** | Update name, password & photo |
+| 🛠️ | **Admin Dashboard** | Manage all users & orders |
+| 🧪 | **Unit Testing** | Vitest + React Testing Library |
+| 🇴🇲 | **OMR Currency** | All prices in Omani Riyals |
 
 ---
 
-## API Endpoints
+## 📡 API Endpoints
 
-| Method | Route | Description |
-|--------|-------|-------------|
-| `POST` | `/registerUser` | Register a new user |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/registerUser` | Register new user |
 | `POST` | `/login` | Login user |
 | `POST` | `/logout` | Logout user |
-| `PUT` | `/updateUserProfile/:email` | Update name, password, profile picture |
+| `PUT` | `/updateUserProfile/:email` | Update profile |
 | `GET` | `/posts` | Get all posts |
-| `POST` | `/posts` | Create a new post |
-| `PUT` | `/posts/:id/like` | Toggle like on a post |
-| `DELETE` | `/posts/:id` | Delete a post (author only) |
-| `POST` | `/orders` | Save a new order |
-| `GET` | `/orders/:email` | Get orders by user |
-| `GET` | `/admin/users` | Get all users (admin) |
-| `GET` | `/admin/orders` | Get all orders (admin) |
-| `PUT` | `/admin/orders/:id/status` | Update order status (admin) |
+| `POST` | `/posts` | Create post |
+| `PUT` | `/posts/:id/like` | Toggle like |
+| `DELETE` | `/posts/:id` | Delete post |
+| `POST` | `/orders` | Save order |
+| `GET` | `/orders/:email` | Get user orders |
+| `GET` | `/admin/users` | All users (admin) |
+| `GET` | `/admin/orders` | All orders (admin) |
+| `PUT` | `/admin/orders/:id/status` | Update order status |
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-| Layer | Technologies |
-|-------|-------------|
+| Layer | Tech |
+|-------|------|
 | **Frontend** | React 18, React Router v6, Redux Toolkit, redux-persist |
-| **Forms** | react-hook-form, Yup validation |
-| **Backend** | Node.js, Express, Mongoose, bcrypt, Multer |
-| **Database** | MongoDB Atlas (3 collections: users, orders, posts) |
+| **Forms** | react-hook-form + Yup |
+| **Backend** | Node.js, Express, Multer |
+| **Database** | MongoDB Atlas — 3 collections |
 | **Testing** | Vitest, React Testing Library, jsdom |
-| **Styling** | Custom CSS, Playfair Display + Lato fonts |
-| **Environment** | dotenv (server), REACT_APP_ variables (client) |
+| **Styling** | Custom CSS, Playfair Display + Lato |
 
 ---
 
-## Database Collections
+## 🗄️ Database Collections
 
 | Collection | Fields |
 |------------|--------|
-| **userInfos** | name, email, password, role, profilePic |
-| **orders** | userEmail, items, total, status, date |
-| **posts** | author, email, message, category, likes, date |
+| `userInfos` | name, email, password, role, profilePic |
+| `orders` | userEmail, items, total, status, date |
+| `posts` | author, email, message, category, likes, date |
 
 ---
 
-## Developers
+## 📁 Project Structure
+
+```plaintext
+plant-nursery/
+├── client/
+│   ├── src/
+│   │   ├── Components/
+│   │   │   ├── Home.js           ← Shop + cart
+│   │   │   ├── ProductDetail.js  ← Plant detail + care tips
+│   │   │   ├── Checkout.js       ← Payment page
+│   │   │   ├── Orders.js         ← Order history
+│   │   │   ├── Posts.js          ← Community feed
+│   │   │   ├── Profile.js        ← User profile
+│   │   │   ├── EditProfile.js    ← Edit account
+│   │   │   ├── AdminDashboard.js ← Admin panel
+│   │   │   ├── About.js          ← About page
+│   │   │   ├── Login.js          ← Login page
+│   │   │   └── Register.js       ← Register page
+│   │   ├── Features/
+│   │   │   ├── UserSlice.js
+│   │   │   └── PlantSlice.js
+│   │   ├── Tests/
+│   │   │   └── About.test.jsx
+│   │   └── Store/store.js
+│   ├── .env
+│   └── package.json
+│
+└── server/
+    ├── Models/
+    │   ├── UserModel.js
+    │   ├── OrderModel.js
+    │   └── PostModel.js
+    ├── index.js
+    ├── config.js
+    ├── .env
+    └── package.json
+```
+
+---
+
+## 👨‍💻 Developers
+
+<div align="center">
 
 | Name | Role |
 |------|------|
-| Nawaf Abdullah | Full Stack Developer |
-| Abdullah | Full Stack Developer |
-| Nasser | Full Stack Developer |
+| **Nawaf Abdullah** | Full Stack Developer |
+| **Abdullah** | Full Stack Developer |
+| **Nasser** | Full Stack Developer |
+
+*Built with ❤️ for Oman 🇴🇲*
+
+</div>
