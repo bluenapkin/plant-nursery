@@ -249,6 +249,17 @@ app.put("/admin/orders/:id/status", async (req, res) => {
   }
 });
 
+// ── Delete User (Admin) ────────────────────────────
+app.delete("/admin/users/:id", async (req, res) => {
+  try {
+    const user = await UserModel.findByIdAndDelete(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.json({ msg: "User deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── Start Server ───────────────────────────────────
 const port = ENV.PORT || 3001;
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));

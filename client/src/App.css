@@ -2046,3 +2046,8 @@ a:visited {
                         transition: background .2s; }
 .about-contact-btn:hover { background: #1e4d38; }
 .about-dev-list { display: flex; flex-direction: column; gap: .8rem; }
+.admin-delete-btn       { background: #fff0f0; border: 1px solid #ffcccc;
+                          border-radius: 8px; padding: .3rem .8rem;
+                          color: #c0392b; font-size: .8rem; font-weight: 600;
+                          cursor: pointer; transition: all .2s; }
+.admin-delete-btn:hover { background: #c0392b; color: #fff; border-color: #c0392b; }

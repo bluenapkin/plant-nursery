@@ -50,6 +50,17 @@ const AdminDashboard = () => {
     }
   };
 
+  // ── Delete User ──────────────────────────────────
+  const handleDeleteUser = async (userId, userName) => {
+    if (!window.confirm(`Are you sure you want to delete ${userName}?`)) return;
+    try {
+      await axios.delete(`${ENV.SERVER_URL}/admin/users/${userId}`);
+      setUsers((prev) => prev.filter((u) => u._id !== userId));
+    } catch (err) {
+      alert("Failed to delete user.");
+    }
+  };
+
   if (loading) return <div className="orders-loading">Loading dashboard…</div>;
 
   const totalRevenue = orders.reduce((s, o) => s + o.total, 0);
@@ -61,6 +72,7 @@ const AdminDashboard = () => {
         <button className="back-btn" onClick={() => navigate("/")}>← Back to Shop</button>
       </div>
 
+      {/* ── Stats ── */}
       <div className="admin-stats">
         <div className="admin-stat-card">
           <div className="asc-num">{orders.length}</div>
@@ -80,11 +92,17 @@ const AdminDashboard = () => {
         </div>
       </div>
 
+      {/* ── Tabs ── */}
       <div className="admin-tabs">
-        <button className={`admin-tab ${tab === "orders" ? "active" : ""}`} onClick={() => setTab("orders")}>Orders</button>
-        <button className={`admin-tab ${tab === "users"  ? "active" : ""}`} onClick={() => setTab("users")}>Users</button>
+        <button className={`admin-tab ${tab === "orders" ? "active" : ""}`} onClick={() => setTab("orders")}>
+          Orders
+        </button>
+        <button className={`admin-tab ${tab === "users" ? "active" : ""}`} onClick={() => setTab("users")}>
+          Users
+        </button>
       </div>
 
+      {/* ── Orders Tab ── */}
       {tab === "orders" && (
         <div className="admin-table-wrap">
           <table className="admin-table">
@@ -124,6 +142,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
+      {/* ── Users Tab ── */}
       {tab === "users" && (
         <div className="admin-table-wrap">
           <table className="admin-table">
@@ -133,6 +152,7 @@ const AdminDashboard = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -152,6 +172,17 @@ const AdminDashboard = () => {
                     <span className={`role-badge ${u.role === "admin" ? "admin" : "user"}`}>
                       {u.role === "admin" ? "Admin" : "User"}
                     </span>
+                  </td>
+                  <td>
+                    {/* Don't allow admin to delete themselves */}
+                    {u.email !== email && (
+                      <button
+                        className="admin-delete-btn"
+                        onClick={() => handleDeleteUser(u._id, u.name)}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
