@@ -2051,3 +2051,12 @@ a:visited {
                           color: #c0392b; font-size: .8rem; font-weight: 600;
                           cursor: pointer; transition: all .2s; }
 .admin-delete-btn:hover { background: #c0392b; color: #fff; border-color: #c0392b; }
+
+.profile-location     { margin-top: 1rem; margin-bottom: 1.5rem; }
+.location-wrap        { background: #f9fafb; border: 1px solid #e5e5e5;
+                        border-radius: 12px; padding: .8rem 1rem;
+                        display: flex; flex-direction: column; gap: .4rem; }
+.location-item        { display: flex; justify-content: space-between;
+                        font-size: .85rem; }
+.location-label       { color: #888; font-weight: 600; }
+.location-value       { color: #111; font-weight: 500; }

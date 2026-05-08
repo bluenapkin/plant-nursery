@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as ENV from "../config";
+import Location from "./Location";
 
 const Profile = () => {
   const navigate   = useNavigate();
@@ -46,10 +47,19 @@ const Profile = () => {
           </div>
 
           <p className="profile-email">{email}</p>
-          <p style={{ color: "#7a9a7a", fontSize: "0.9rem", marginBottom: "24px" }}>
+          <p style={{ color: "#7a9a7a", fontSize: "0.9rem", marginBottom: "12px" }}>
             Member since {joinDate} · Ghars Community
           </p>
 
+          {/* ── Location ── */}
+          <div className="profile-location">
+            <h4 style={{ color: "var(--green-dark)", marginBottom: "8px", fontSize: "0.95rem" }}>
+              📍 Your Location
+            </h4>
+            <Location />
+          </div>
+
+          {/* ── Stats ── */}
           <div className="profile-stat-row">
             <div className="profile-stat" style={{ cursor: "pointer" }} onClick={() => navigate("/posts")}>
               <div className="stat-num">{reduxPosts.length}</div>
@@ -65,6 +75,7 @@ const Profile = () => {
             </div>
           </div>
 
+          {/* ── Recent Posts ── */}
           <div style={{ marginTop: "28px" }}>
             <h3 style={{ fontFamily: "'Playfair Display', serif", color: "var(--green-dark)", fontSize: "1.1rem", marginBottom: "12px" }}>
               My Recent Posts
@@ -89,6 +100,7 @@ const Profile = () => {
               </div>
             )}
           </div>
+
         </div>
       </div>
     </div>
