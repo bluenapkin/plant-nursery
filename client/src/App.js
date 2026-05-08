@@ -11,32 +11,27 @@ import EditProfile from "./Components/EditProfile";
 import AdminDashboard from "./Components/AdminDashboard";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import ProductDetail from "./Components/ProductDetail";
-import Checkout      from "./Components/Checkout";
+import Checkout from "./Components/Checkout";
 import About from "./Components/About";
 
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const App = () => {
-  const email = useSelector((state) => state.users.user?.email);
-
   return (
     <Router>
       <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        {email && <Header />}
+        <Header />
         <main style={{ flex: 1 }}>
           <Routes>
-            {/* ── Public Routes ── */}
-            <Route path="/login"    element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<About />} />
 
+            {/* ── Public Routes ── */}
+            <Route path="/"            element={<Home />} />
+            <Route path="/login"       element={<Login />} />
+            <Route path="/register"    element={<Register />} />
+            <Route path="/about"       element={<About />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
 
             {/* ── Protected Routes ── */}
-            <Route path="/" element={
-              <ProtectedRoute><Home /></ProtectedRoute>
-            } />
             <Route path="/profile" element={
               <ProtectedRoute><Profile /></ProtectedRoute>
             } />
@@ -52,12 +47,10 @@ const App = () => {
             <Route path="/admin" element={
               <ProtectedRoute><AdminDashboard /></ProtectedRoute>
             } />
-            <Route path="/product/:id" element={
-              <ProtectedRoute><ProductDetail /></ProtectedRoute>
-            } />
             <Route path="/checkout" element={
               <ProtectedRoute><Checkout /></ProtectedRoute>
             } />
+
           </Routes>
         </main>
         <Footer />

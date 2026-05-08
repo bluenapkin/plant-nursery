@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axios from "axios";
 
 export const PRODUCTS = [
   { id: 1,  name: "Mango Tree",       emoji: "🥭", price: 9.500,  category: "Fruit Trees",  desc: "Sweet & tropical. Thrives in warm climates. Bears fruit in 3–5 years.",       badge: "Best Seller", care: { water: "Twice a week", sun: "Full sun", temp: "25–35°C", difficulty: "Easy" } },
@@ -39,9 +38,8 @@ const Home = () => {
   const [search,   setSearch]   = useState("");
   const [addedId,  setAddedId]  = useState(null);
 
-  useEffect(() => { if (!email) navigate("/login"); }, [email, navigate]);
+  // ✅ No more login redirect — page is public
   useEffect(() => { localStorage.setItem("cart", JSON.stringify(cart)); }, [cart]);
-  if (!email) return null;
 
   const addToCart = (product, e) => {
     e.stopPropagation();
@@ -67,18 +65,28 @@ const Home = () => {
     return matchCat && matchQ;
   });
 
+  // ✅ Redirect to login if guest tries to checkout
+  const handleCheckout = () => {
+    setCartOpen(false);
+    if (!email) {
+      navigate("/login");
+      return;
+    }
+    navigate("/checkout");
+  };
+
   return (
     <>
       <div className="home-wrap">
 
         {/* ── Hero ── */}
-          <section className="hero-section">
-            <div className="hero-content">
+        <section className="hero-section">
+          <div className="hero-content">
             <span className="hero-tag">🌿 Ghars — غرس</span>
             <h1 className="hero-title">Bring Nature<br />Into Your Home</h1>
             <p className="hero-desc">
               Rare fruit trees & tropical plants, hand-picked and delivered fresh to your door.
-              </p>
+            </p>
             <div className="hero-actions">
               <button className="hero-cta" onClick={() => document.getElementById("shop").scrollIntoView({ behavior: "smooth" })}>
                 Shop Now →
@@ -202,8 +210,9 @@ const Home = () => {
                   <span className="total-label">Total</span>
                   <span className="total-amt">{cartTotal.toFixed(3)} OMR</span>
                 </div>
-                <button className="checkout-btn" onClick={() => { setCartOpen(false); navigate("/checkout", { state: { cart, cartTotal } }); }}>
-                  Proceed to Checkout →
+                {/* ✅ Redirects guest to login, logged in users go to checkout */}
+                <button className="checkout-btn" onClick={handleCheckout}>
+                  {email ? "Proceed to Checkout →" : "Login to Checkout →"}
                 </button>
               </div>
             )}
