@@ -47,6 +47,7 @@ npm start
 | Name | Email | Password | Role |
 |------|-------|----------|------|
 | Nawaf | nawaf1@gmail.com | 12345 | 👑 Admin |
+| Abdullah | Abdu@gmail.com | 12345 | 👑 Admin |
 
 ---
 
