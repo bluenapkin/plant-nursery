@@ -11,7 +11,7 @@ const ProductDetail = () => {
   const email      = useSelector((state) => state.users.user?.email);
   const [added, setAdded] = useState(false);
 
-  useEffect(() => { if (!email) navigate("/login"); }, [email]);
+  useEffect(() => { if (!email) navigate("/login"); }, [email, navigate]);
 
   const product = PRODUCTS.find((p) => p.id === parseInt(id));
   if (!product) return <div className="pd-notfound">🌿 Plant not found. <button onClick={() => navigate("/")}>Go Back</button></div>;

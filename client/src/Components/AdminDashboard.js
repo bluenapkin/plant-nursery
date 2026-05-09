@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (!email)           { navigate("/login"); return; }
     if (role !== "admin") { navigate("/");      return; }
-  }, [email, role]);
+  }, [email, role, navigate]);
 
   useEffect(() => {
     if (role !== "admin") return;

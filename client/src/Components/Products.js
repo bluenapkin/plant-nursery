@@ -99,7 +99,7 @@ const Products = () => {
                   </span>
                 )}
                 <div className="new-card-emoji">
-                  <img src={p.image} alt={p.name} style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '8px' }} />
+                  <img src={p.image} alt={p.name} style={{ width: '250px', height: '250px', objectFit: 'cover', borderRadius: '8px' }} />
                 </div>
                 <div className="new-card-body">
                   <span className="new-card-cat">{p.category}</span>
