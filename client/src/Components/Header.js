@@ -78,6 +78,7 @@ const Header = () => {
         <nav className="nursery-nav">
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
+          <Link to="/products">Products</Link>
           
           {email ? (
             <>
