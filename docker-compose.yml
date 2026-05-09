@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_USER=Green
+      - DB_PASSWORD=Green
+      - DB_CLUSTER=clustergreen.xeo7b3f.mongodb.net
+      - DB_NAME=GreenDB
+      - CLIENT_URL=http://localhost:3000
+    volumes:
+      - ./server/uploads:/app/uploads  
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_SERVER_URL=http://localhost:3001
+      - REACT_APP_IPIFY_KEY=at_r78vkyZWrOmerM5okJ2SFBh1emncr
+    depends_on:
+      - server
