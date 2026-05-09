@@ -36,10 +36,6 @@ const getGeoLocationData = async () => {
 
   return (
     <div className="location-wrap">
-      <div className="location-item">
-        <span className="location-label">IP Address</span>
-        <span className="location-value">{ip || "Loading…"}</span>
-      </div>
       {geoData && (
         <>
           <div className="location-item">
