@@ -13,6 +13,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import ProductDetail from "./Components/ProductDetail";
 import Checkout from "./Components/Checkout";
 import About from "./Components/About";
+import Products from "./Components/Products";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/login"       element={<Login />} />
             <Route path="/register"    element={<Register />} />
             <Route path="/about"       element={<About />} />
+            <Route path="/products"    element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
 
             {/* ── Protected Routes ── */}
