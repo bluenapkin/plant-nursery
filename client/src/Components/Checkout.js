@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import * as ENV from "../config";
+import { PRODUCTS } from "./Home";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -17,8 +18,13 @@ const Checkout = () => {
   useEffect(() => {
     if (!email) { navigate("/login"); return; }
     const saved = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(saved);
-  }, [email]);
+    // Merge cart items with current product data to ensure all properties are up to date
+    const updatedCart = saved.map(cartItem => {
+      const product = PRODUCTS.find(p => p.id === cartItem.id);
+      return product ? { ...product, qty: cartItem.qty } : cartItem;
+    });
+    setCart(updatedCart);
+  }, [email, navigate]);
 
   const cartTotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
 
@@ -74,7 +80,9 @@ const Checkout = () => {
             <>
               {cart.map((item) => (
                 <div className="co-item" key={item.id}>
-                  <span className="co-emoji">{item.emoji}</span>
+                  <div className="co-emoji">
+                    <img src={item.image || '/img/logo.png'} alt={item.name} style={{ width: '36px', height: '36px', objectFit: 'cover', borderRadius: '6px' }} />
+                  </div>
                   <div className="co-info">
                     <div className="co-name">{item.name}</div>
                     <div className="co-price">{(item.price * item.qty).toFixed(3)} OMR</div>

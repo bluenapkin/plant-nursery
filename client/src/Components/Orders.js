@@ -68,7 +68,9 @@ const Orders = () => {
               <div className="order-items-list">
                 {order.items.map((item, i) => (
                   <div className="order-item-row" key={i}>
-                    <span className="oi-emoji">{item.emoji}</span>
+                    <div className="oi-emoji">
+                      <img src={item.image || '/img/logo.png'} alt={item.name} style={{ width: '36px', height: '36px', objectFit: 'cover', borderRadius: '6px' }} />
+                    </div>
                     <span className="oi-name">{item.name}</span>
                     <span className="oi-qty">× {item.qty}</span>
                     <span className="oi-price">{(item.price * item.qty).toFixed(3)} OMR</span>

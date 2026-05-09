@@ -1628,8 +1628,7 @@ a:visited {
 .new-card-badge         { position: absolute; top: 12px; left: 12px; font-size: .7rem;
                           font-weight: 700; padding: .25rem .7rem; border-radius: 20px;
                           text-transform: uppercase; letter-spacing: .5px; }
-.new-card-emoji         { font-size: 4rem; text-align: center; padding: 2rem 1rem 1rem;
-                          background: #f9fafb; }
+.new-card-emoji         { display: flex; justify-content: center; align-items: center; padding: 1rem; background: #f9fafb; }
 .new-card-body          { padding: 1.2rem; }
 .new-card-cat           { font-size: .72rem; color: #16a34a; font-weight: 700;
                           text-transform: uppercase; letter-spacing: .5px; }
@@ -1668,10 +1667,12 @@ a:visited {
 .pd-notfound        { text-align: center; padding: 4rem; font-size: 1.2rem; }
 .pd-wrap            { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 1.5rem; }
 .pd-left            { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-.pd-emoji-box       { width: 100%; background: #f9fafb; border: 1.5px solid #f0f0f0;
+.pd-emoji-box       { width: 100%; max-width: 520px; aspect-ratio: 1 / 1;
+                      background: #f9fafb; border: 1.5px solid #f0f0f0;
                       border-radius: 24px; display: flex; align-items: center;
-                      justify-content: center; font-size: 8rem; padding: 3rem;
-                      box-shadow: 0 4px 20px rgba(0,0,0,.06); }
+                      justify-content: center; font-size: 8rem; padding: 2.25rem;
+                      box-shadow: 0 4px 20px rgba(0,0,0,.06); overflow: hidden; }
+.pd-emoji-box img   { width: 100%; height: 100%; object-fit: contain; }
 .pd-badge           { background: #111; color: #fff; padding: .4rem 1.2rem;
                       border-radius: 20px; font-size: .8rem; font-weight: 700; }
 .pd-cat             { font-size: .8rem; color: #16a34a; font-weight: 700;
@@ -1807,8 +1808,8 @@ a:visited {
 
 /* ── Button ───────────────────────────────────────── */
 .auth2-btn            { width: 100%; padding: .9rem; background: #2d6a4f; color: #fff;
-                        border: none; border-radius: 12px; font-size: 1rem;
-                        font-weight: 700; cursor: pointer; margin-top: .5rem;
+                        border: 2px solid #1e4d38; border-radius: 12px; font-size: 1rem;
+                        font-weight: 700; cursor: pointer; margin-top: .5rem; margin-bottom: .5rem;
                         transition: background .2s; letter-spacing: .3px; }
 .auth2-btn:hover      { background: #1e4d38; }
 .auth2-btn:disabled   { background: #aaa; cursor: not-allowed; }
@@ -1881,9 +1882,9 @@ a:visited {
 
 /* ── Button ───────────────────────────────────────── */
 .auth2-btn            { width: 100%; padding: .95rem; background: #2d6a4f;
-                        color: #fff; border: none; border-radius: 12px;
+                        color: #fff; border: 2px solid #1e4d38; border-radius: 12px;
                         font-size: 1rem; font-weight: 700; cursor: pointer;
-                        margin-top: .5rem; transition: background .2s;
+                        margin-top: .5rem; margin-bottom: .5rem; transition: background .2s;
                         letter-spacing: .5px; }
 .auth2-btn:hover      { background: #1e4d38; }
 .auth2-btn:disabled   { background: #aaa; cursor: not-allowed; }
@@ -2078,6 +2079,8 @@ a:visited {
   white-space: nowrap;
   min-width: 90px;
   line-height: 1;
+  
+  box-sizing: border-box;
 }
 
 .header-login-btn:hover {
@@ -2106,4 +2109,60 @@ a:visited {
 
 .header-register-btn:hover {
   background: #1e4d38;
+}
+
+/* ── Header Cart Button ── */
+.header-cart-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.header-cart-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.header-cart-badge {
+  background: var(--green-light);
+  color: var(--green-dark);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .header-cart-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .header-cart-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
 }
