@@ -2060,15 +2060,50 @@ a:visited {
                         font-size: .85rem; }
 .location-label       { color: #888; font-weight: 600; }
 .location-value       { color: #111; font-weight: 500; }
-.header-login-btn       { background: none; border: 1.5px solid #2d6a4f;
-                          color: #2d6a4f; padding: .4rem 1.1rem;
-                          border-radius: 20px; font-weight: 600;
-                          text-decoration: none; font-size: .9rem;
-                          transition: all .2s; }
-.header-login-btn:hover { background: #2d6a4f; color: #fff; }
+.header-login-btn {
+  background: none;
+  border: 1.5px solid #2d6a4f;
+  color: #2d6a4f;
+  padding: 0.5rem 1.4rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s;
 
-.header-register-btn        { background: #2d6a4f; color: #fff;
-                              padding: .4rem 1.1rem; border-radius: 20px;
-                              font-weight: 600; text-decoration: none;
-                              font-size: .9rem; transition: background .2s; }
-.header-register-btn:hover  { background: #1e4d38; }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  white-space: nowrap;
+  min-width: 90px;
+  line-height: 1;
+}
+
+.header-login-btn:hover {
+  background: #2d6a4f;
+  color: #fff;
+}
+
+.header-register-btn {
+  background: #2d6a4f;
+  color: #fff;
+  padding: 0.5rem 1.4rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  white-space: nowrap;
+  min-width: 90px;
+  line-height: 1;
+}
+
+.header-register-btn:hover {
+  background: #1e4d38;
+}
