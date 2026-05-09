@@ -14,6 +14,7 @@ const AdminDashboard = () => {
   const [tab,     setTab]     = useState("orders");
   const [orders,  setOrders]  = useState([]);
   const [users,   setUsers]   = useState([]);
+  const [posts,   setPosts]   = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,9 +27,11 @@ const AdminDashboard = () => {
     Promise.all([
       axios.get(`${ENV.SERVER_URL}/admin/orders`),
       axios.get(`${ENV.SERVER_URL}/admin/users`),
-    ]).then(([ordersRes, usersRes]) => {
+      axios.get(`${ENV.SERVER_URL}/admin/posts`),
+    ]).then(([ordersRes, usersRes, postsRes]) => {
       setOrders(ordersRes.data);
       setUsers(usersRes.data);
+      setPosts(postsRes.data);
       setLoading(false);
     }).catch((err) => {
       console.error(err);
@@ -61,6 +64,17 @@ const AdminDashboard = () => {
     }
   };
 
+  // ── Delete Post ──────────────────────────────────
+  const handleDeletePost = async (postId, postAuthor) => {
+    if (!window.confirm(`Are you sure you want to delete ${postAuthor}'s post?`)) return;
+    try {
+      await axios.delete(`${ENV.SERVER_URL}/admin/posts/${postId}`);
+      setPosts((prev) => prev.filter((p) => p._id !== postId));
+    } catch (err) {
+      alert("Failed to delete post.");
+    }
+  };
+
   if (loading) return <div className="orders-loading">Loading dashboard…</div>;
 
   const totalRevenue = orders.reduce((s, o) => s + o.total, 0);
@@ -83,12 +97,12 @@ const AdminDashboard = () => {
           <div className="asc-label">Total Users</div>
         </div>
         <div className="admin-stat-card">
-          <div className="asc-num">{totalRevenue.toFixed(3)}</div>
-          <div className="asc-label">Revenue (OMR)</div>
+          <div className="asc-num">{posts.length}</div>
+          <div className="asc-label">Total Posts</div>
         </div>
         <div className="admin-stat-card">
-          <div className="asc-num">{orders.filter((o) => o.status === "Pending").length}</div>
-          <div className="asc-label">Pending Orders</div>
+          <div className="asc-num">{totalRevenue.toFixed(3)}</div>
+          <div className="asc-label">Revenue (OMR)</div>
         </div>
       </div>
 
@@ -99,6 +113,9 @@ const AdminDashboard = () => {
         </button>
         <button className={`admin-tab ${tab === "users" ? "active" : ""}`} onClick={() => setTab("users")}>
           Users
+        </button>
+        <button className={`admin-tab ${tab === "posts" ? "active" : ""}`} onClick={() => setTab("posts")}>
+          Posts
         </button>
       </div>
 
@@ -183,6 +200,45 @@ const AdminDashboard = () => {
                         Delete
                       </button>
                     )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* ── Posts Tab ── */}
+      {tab === "posts" && (
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Author</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Category</th>
+                <th>Likes</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {posts.map((p) => (
+                <tr key={p._id}>
+                  <td>{p.author}</td>
+                  <td>{p.email}</td>
+                  <td className="message-cell" title={p.message}>{p.message.substring(0, 50)}{p.message.length > 50 ? "..." : ""}</td>
+                  <td>{p.category || "General"}</td>
+                  <td>{p.likes.length}</td>
+                  <td>{new Date(p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</td>
+                  <td>
+                    <button
+                      className="admin-delete-btn"
+                      onClick={() => handleDeletePost(p._id, p.author)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

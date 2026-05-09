@@ -260,6 +260,27 @@ app.delete("/admin/users/:id", async (req, res) => {
   }
 });
 
+// ── Get All Posts (Admin) ──────────────────────────
+app.get("/admin/posts", async (req, res) => {
+  try {
+    const posts = await PostModel.find().sort({ date: -1 });
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ── Delete Post (Admin) ────────────────────────────
+app.delete("/admin/posts/:id", async (req, res) => {
+  try {
+    const post = await PostModel.findByIdAndDelete(req.params.id);
+    if (!post) return res.status(404).json({ error: "Post not found" });
+    res.json({ msg: "Post deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── Start Server ───────────────────────────────────
 const port = ENV.PORT || 3001;
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
