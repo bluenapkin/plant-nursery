@@ -45,7 +45,7 @@ const ProductDetail = () => {
         {/* ── Left — Emoji Display ── */}
         <div className="pd-left">
           <div className="pd-emoji-box">
-            <img src={p.image} alt={p.name} style={{ width: '125px', height: '125px', objectFit: 'cover', borderRadius: '8px' }} />
+            <img src={product.image} alt={product.name} style={{ width: '125px', height: '125px', objectFit: 'cover', borderRadius: '8px' }} />
           </div>
           {product.badge && (
             <span className="pd-badge">{product.badge}</span>
