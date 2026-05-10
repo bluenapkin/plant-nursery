@@ -1725,11 +1725,11 @@ a:visited {
 }
 
 /* ── Checkout Page ────────────────────────────────── */
-.checkout-page      { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; }
+.checkout-page      { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; position: relative; z-index: 0; }
 .checkout-title     { font-size: 1.8rem; font-weight: 800; color: #111; margin-bottom: 1.5rem; }
-.checkout-wrap      { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.checkout-wrap      { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; position: relative; z-index: 0; }
 .checkout-summary,
-.checkout-form      { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 20px; padding: 1.5rem; }
+.checkout-form      { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 20px; padding: 1.5rem; position: relative; z-index: 0; }
 .checkout-summary h2,
 .checkout-form h2   { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 1.2rem; }
 
@@ -1749,37 +1749,41 @@ a:visited {
 .checkout-success p    { color: #666; margin-bottom: 1.5rem; }
 
 .map-picker {
-  background: #f6fcf7;
-  border: 1.5px dashed rgba(22, 163, 74, 0.35);
-  border-radius: 18px;
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  text-align: center;
-  color: #225430;
-  cursor: crosshair;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.map-picker:hover {
-  border-color: var(--shop-leaf);
-  background: #eef8ee;
-}
-
-.map-picker strong {
-  display: block;
-  font-size: 1rem;
-  margin-bottom: 0.45rem;
-}
-
-.map-picker {
   background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 12%),
               radial-gradient(circle at 80% 25%, rgba(255,255,255,0.5), transparent 10%),
               linear-gradient(135deg, #fdfdfb 0%, #f0fbf2 100%);
   position: relative;
+  z-index: 0;
   overflow: hidden;
+  border-radius: 18px;
+  border: 1.5px dashed rgba(22, 163, 74, 0.35);
+  height: 280px;
+  width: 100%;
+  isolation: isolate;
+}
+
+.map-picker .leaflet-container {
+  height: 100%;
+  width: 100%;
+  border-radius: 18px;
+  pointer-events: auto;
+  position: relative;
+  z-index: 0;
+}
+
+.map-picker .leaflet-top,
+.map-picker .leaflet-bottom {
+  z-index: 1000;
+}
+
+.map-picker .leaflet-control {
+  pointer-events: auto;
+}
+
+.map-picker .leaflet-pane,
+.map-picker .leaflet-marker-pane,
+.map-picker .leaflet-popup-pane {
+  pointer-events: auto;
 }
 
 .map-picker .map-pin {
