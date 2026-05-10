@@ -188,7 +188,7 @@ const Checkout = () => {
           </div>
           <div className="pay-field">
             <label>Phone Number</label>
-            <input placeholder="Phone number" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+            <input placeholder="Phone number" type="tel" maxLength="8" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
           </div>
           <div className="pay-field">
             <label>Email</label>
@@ -196,7 +196,7 @@ const Checkout = () => {
           </div>
           <div className="pay-field">
             <label>Address</label>
-            <input placeholder="Address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+            <input placeholder="Wilayat, City, Street.." value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
           </div>
           <div className="pay-row">
             <div className="pay-field">
