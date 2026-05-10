@@ -61,12 +61,12 @@ npm start
 | 🌿 | **Plant Shop** | 12 plants with search & category filter |
 | 🪴 | **Product Detail** | Care guide with water, sun & difficulty |
 | 🛒 | **Cart** | Add, remove, update quantity |
-| 💳 | **Checkout** | Order summary + payment form |
-| 📦 | **Orders** | History with Pending / Delivered status |
+| 💳 | **Checkout** | Delivery details, map pin location, and payment method |
+| 📦 | **Orders** | History with Pending / Delivered status and delivery info |
 | 💬 | **Community Posts** | Create, like & delete plant posts |
 | 👤 | **Profile** | Stats, posts, orders in one page |
 | ✏️ | **Edit Profile** | Update name, password & photo |
-| 🛠️ | **Admin Dashboard** | Manage all users & orders |
+| 🛠️ | **Admin Dashboard** | Manage all users & orders with delivery details and order status |
 | 🧪 | **Unit Testing** | Vitest + React Testing Library |
 | 🇴🇲 | **OMR Currency** | All prices in Omani Riyals |
 
@@ -84,10 +84,10 @@ npm start
 | `POST` | `/posts` | Create post |
 | `PUT` | `/posts/:id/like` | Toggle like |
 | `DELETE` | `/posts/:id` | Delete post |
-| `POST` | `/orders` | Save order |
+| `POST` | `/orders` | Save order with delivery and location info |
 | `GET` | `/orders/:email` | Get user orders |
 | `GET` | `/admin/users` | All users (admin) |
-| `GET` | `/admin/orders` | All orders (admin) |
+| `GET` | `/admin/orders` | All orders with delivery details (admin) |
 | `PUT` | `/admin/orders/:id/status` | Update order status |
 
 ---
@@ -110,7 +110,7 @@ npm start
 | Collection | Fields |
 |------------|--------|
 | `userInfos` | name, email, password, role, profilePic |
-| `orders` | userEmail, items, total, status, date |
+| `orders` | userEmail, items, delivery, total, status, date |
 | `posts` | author, email, message, category, likes, date |
 
 ---
