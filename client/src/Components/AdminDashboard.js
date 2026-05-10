@@ -127,20 +127,30 @@ const AdminDashboard = () => {
               <tr>
                 <th>Order ID</th>
                 <th>Customer</th>
-                <th>Items</th>
+                <th>Phone</th>
+                <th>Wilayat</th>
+                <th>Items (Qty × Price)</th>
                 <th>Total</th>
-                <th>Date</th>
+                <th>Payment</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
-                <tr key={order._id}>
+                <tr key={order._id} title={`Address: ${order.delivery?.address || "N/A"}\nLocation: ${order.delivery?.location?.lat || "N/A"}, ${order.delivery?.location?.lng || "N/A"}`}>
                   <td className="order-id-cell">#{order._id.slice(-6).toUpperCase()}</td>
-                  <td>{order.userEmail}</td>
-                  <td>{order.items.map((i) => `${i.emoji} ${i.name}`).join(", ")}</td>
+                  <td>{order.delivery?.fullName || order.userEmail}</td>
+                  <td>{order.delivery?.phone || "–"}</td>
+                  <td>{order.delivery?.wilayat || "–"}</td>
+                  <td className="items-detail-cell">
+                    {order.items.map((i, idx) => (
+                      <div key={idx}>
+                        {i.emoji} {i.name} — {i.qty}× {i.price.toFixed(3)} OMR
+                      </div>
+                    ))}
+                  </td>
                   <td><strong>{order.total.toFixed(3)} OMR</strong></td>
-                  <td>{new Date(order.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</td>
+                  <td>{order.delivery?.paymentMethod === "credit" ? "💳 Card" : "💵 Cash"}</td>
                   <td>
                     <select
                       className={`status-select ${order.status === "Delivered" ? "delivered" : "pending"}`}
@@ -156,6 +166,9 @@ const AdminDashboard = () => {
               ))}
             </tbody>
           </table>
+          <div className="admin-legend">
+            <small>💡 Hover over orders to see full address &amp; location coordinates</small>
+          </div>
         </div>
       )}
 
