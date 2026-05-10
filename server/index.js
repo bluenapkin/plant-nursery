@@ -139,10 +139,10 @@ app.put(
 // ── Save Order ─────────────────────────────────────
 app.post("/orders", async (req, res) => {
   try {
-    const { userEmail, items, total } = req.body;
+    const { userEmail, items, total, delivery } = req.body;
     if (!userEmail || !items || items.length === 0)
       return res.status(400).json({ error: "Invalid order data" });
-    const order = new OrderModel({ userEmail, items, total });
+    const order = new OrderModel({ userEmail, items, total, delivery });
     const saved = await order.save();
     res.status(201).json({ message: "Order saved successfully", orderId: saved._id });
   } catch (err) {
