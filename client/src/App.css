@@ -1557,6 +1557,12 @@ a:visited {
 .role-badge.admin     { background: #fff3cd; color: #856404; }
 .role-badge.user      { background: #f0f7f0; color: #2d6a4f; }
 
+.items-detail-cell    { font-size: .8rem; color: #555; line-height: 1.5; }
+.items-detail-cell div { margin: 0.3rem 0; }
+
+.admin-legend         { margin-top: 1rem; padding: .8rem; background: #f9f9f9; border-radius: 8px;
+                        border-left: 3px solid #2d6a4f; color: #666; font-size: .85rem; }
+
 /* ── Delete Post Button ───────────────────────────── */
 .delete-post-btn      { background: none; border: 1px solid #ffcccc; border-radius: 20px;
                         padding: .3rem .9rem; cursor: pointer; font-size: .85rem; color: #c0392b;
