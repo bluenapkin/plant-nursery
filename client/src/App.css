@@ -1271,6 +1271,22 @@ a:visited {
   border-color: var(--shop-leaf-lt);
 }
 
+.pay-field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--shop-border);
+  border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.pay-field select:focus {
+  border-color: var(--shop-leaf-lt);
+}
+
 .pay-row {
   display: flex;
   gap: 12px;
@@ -1731,6 +1747,85 @@ a:visited {
 .checkout-success span { font-size: 4rem; display: block; margin-bottom: 1rem; }
 .checkout-success h2   { font-size: 1.8rem; font-weight: 800; color: #111; margin-bottom: .5rem; }
 .checkout-success p    { color: #666; margin-bottom: 1.5rem; }
+
+.map-picker {
+  background: #f6fcf7;
+  border: 1.5px dashed rgba(22, 163, 74, 0.35);
+  border-radius: 18px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  color: #225430;
+  cursor: crosshair;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.map-picker:hover {
+  border-color: var(--shop-leaf);
+  background: #eef8ee;
+}
+
+.map-picker strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.45rem;
+}
+
+.map-picker {
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 12%),
+              radial-gradient(circle at 80% 25%, rgba(255,255,255,0.5), transparent 10%),
+              linear-gradient(135deg, #fdfdfb 0%, #f0fbf2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.map-picker .map-pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  font-size: 1.6rem;
+  pointer-events: none;
+}
+
+.map-picker-content {
+  position: relative;
+  z-index: 1;
+  max-width: 220px;
+}
+
+.map-picker p {
+  margin: 0;
+  color: #42543d;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.payment-methods label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid #e7efe8;
+  background: #f9fdf8;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.payment-methods label:hover {
+  border-color: var(--shop-leaf);
+}
+
+.payment-methods input {
+  accent-color: var(--shop-leaf);
+  cursor: pointer;
+}
 
 @media (max-width: 768px) {
   .checkout-wrap    { grid-template-columns: 1fr; }
