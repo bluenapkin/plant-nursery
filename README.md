@@ -122,35 +122,53 @@ plant-nursery/
 ├── client/
 │   ├── src/
 │   │   ├── Components/
-│   │   │   ├── Home.js           ← Shop + cart
-│   │   │   ├── ProductDetail.js  ← Plant detail + care tips
-│   │   │   ├── Checkout.js       ← Payment page
-│   │   │   ├── Orders.js         ← Order history
-│   │   │   ├── Posts.js          ← Community feed
-│   │   │   ├── Profile.js        ← User profile
-│   │   │   ├── EditProfile.js    ← Edit account
-│   │   │   ├── AdminDashboard.js ← Admin panel
-│   │   │   ├── About.js          ← About page
-│   │   │   ├── Login.js          ← Login page
-│   │   │   └── Register.js       ← Register page
+│   │   │   ├── About.jsx           ← App information page
+│   │   │   ├── AdminDashboard.js   ← Admin panel for users/orders
+│   │   │   ├── Checkout.js         ← Checkout + delivery form + map
+│   │   │   ├── EditProfile.js      ← Profile editing
+│   │   │   ├── Footer.js           ← Footer layout
+│   │   │   ├── Header.js           ← Navigation header
+│   │   │   ├── Home.js             ← Shop + cart
+│   │   │   ├── Location.js         ← Optional location helper page
+│   │   │   ├── Login.js            ← Login page
+│   │   │   ├── Orders.js           ← User order history
+│   │   │   ├── Posts.js            ← Community feed
+│   │   │   ├── ProductDetail.js    ← Plant detail + care tips
+│   │   │   ├── Products.js         ← Plant listing page
+│   │   │   ├── Profile.js          ← User profile page
+│   │   │   ├── ProtectedRoute.js   ← Route guard for auth
+│   │   │   ├── Register.js         ← Registration page
+│   │   │   ├── SharePlant.js       ← Share plant updates
+│   │   │   └── User.js             ← User card/profile helper
 │   │   ├── Features/
-│   │   │   ├── UserSlice.js
-│   │   │   └── PlantSlice.js
+│   │   │   ├── PlantSlice.js       ← Redux slice for plants
+│   │   │   └── UserSlice.js        ← Redux slice for user state
+│   │   ├── Store/
+│   │   │   └── store.js            ← Redux store setup
 │   │   ├── Tests/
-│   │   │   └── About.test.jsx
-│   │   └── Store/store.js
-│   ├── .env
-│   └── package.json
+│   │   │   └── About.test.jsx      ← Example unit test
+│   │   ├── Validations/
+│   │   │   └── UserValidations.js  ← Form validation rules
+│   │   ├── App.css
+│   │   ├── App.js
+│   │   ├── config.js
+│   │   ├── ExampleData.js
+│   │   ├── index.css
+│   │   └── index.js
+│   ├── Dockerfile
+│   ├── package.json
+│   └── vite.config.js
 │
 └── server/
     ├── Models/
     │   ├── UserModel.js
     │   ├── OrderModel.js
     │   └── PostModel.js
-    ├── index.js
     ├── config.js
-    ├── .env
-    └── package.json
+    ├── Dockerfile
+    ├── index.js
+    ├── package.json
+    └── uploads/
 ```
 
 ---
