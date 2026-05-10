@@ -215,12 +215,12 @@ const Checkout = () => {
           </div>
           <div className="pay-field">
             <label>Pin your delivery location on the map</label>
-            <div className="map-picker" style={{ padding: 0 }}>
+            <div className="map-picker">
               <MapContainer
                 center={location.lat && location.lng ? [location.lat, location.lng] : [21.0, 57.0]}
                 zoom={6}
                 scrollWheelZoom={false}
-                style={{ height: "280px", width: "100%", borderRadius: "18px" }}
+                dragging={true}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -231,7 +231,16 @@ const Checkout = () => {
             </div>
             <div style={{ marginTop: "0.85rem", color: "#42543d", fontSize: "0.95rem" }}>
               {location.lat && location.lng ? (
-                <span>Location set at {location.lat.toFixed(4)}, {location.lng.toFixed(4)}. Click the map to move it.</span>
+                <>
+                  <span>Location set at {location.lat.toFixed(4)}, {location.lng.toFixed(4)}. Click the map to move it.</span>
+                  {(form.address || form.wilayat) && (
+                    <div style={{ marginTop: "0.5rem", color: "#354530", fontSize: "0.9rem" }}>
+                      {form.address && <span>Address: {form.address}</span>}
+                      {form.address && form.wilayat && <span> • </span>}
+                      {form.wilayat && <span>Wilayat: {form.wilayat}</span>}
+                    </div>
+                  )}
+                </>
               ) : (
                 <span>Click the map to set your delivery location.</span>
               )}
