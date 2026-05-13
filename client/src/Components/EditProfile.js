@@ -13,9 +13,8 @@ const EditProfile = () => {
   const [pwd,             setPwd]             = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profilePic,      setProfilePic]      = useState(user.profilePic);
-  const [preview,         setPreview]         = useState(
-    user.profilePic ? `${ENV.SERVER_URL}/uploads/${user.profilePic}` : null
-  );
+  const [preview, setPreview] = useState(user.profilePic || null);
+  
   const [showPwd,     setShowPwd]     = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [saving,      setSaving]      = useState(false);

@@ -3,10 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import multer from "multer";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 import UserModel from "./Models/UserModel.js";
 import OrderModel from "./Models/OrderModel.js";
 import PostModel from "./Models/PostModel.js";
@@ -23,18 +21,23 @@ app.use(cors({
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 }));
-app.use(express.json());                    
-app.use(express.urlencoded({ extended: true }));  
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// ── Static Files ───────────────────────────────────
-const __filename = fileURLToPath(import.meta.url);
-const __dirname  = dirname(__filename);
-app.use("/uploads", express.static(__dirname + "/uploads"));
+// ── Cloudinary Setup ───────────────────────────────
+cloudinary.config({
+  cloud_name: ENV.CLOUDINARY_CLOUD_NAME,
+  api_key:    ENV.CLOUDINARY_API_KEY,
+  api_secret: ENV.CLOUDINARY_API_SECRET,
+});
 
-// ── Multer ─────────────────────────────────────────
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => { cb(null, "uploads/"); },
-  filename:    (req, file, cb) => { cb(null, Date.now() + "-" + file.originalname); },
+// ── Multer Cloudinary Storage ──────────────────────
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder:          "ghars-profiles",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+  },
 });
 const upload = multer({ storage });
 
@@ -64,25 +67,15 @@ app.post("/registerUser", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log("📧 Login attempt:", email);
-    console.log("🔑 Password received:", password);
-
     const user = await UserModel.findOne({ email });
-    console.log("👤 User found:", user ? "Yes" : "No");
-
     if (!user) return res.status(404).json({ error: "User not found" });
-
     const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log("✅ Password match:", passwordMatch);
-
     if (!passwordMatch) return res.status(401).json({ error: "Authentication failed" });
-
     res.status(200).json({
       user: { name: user.name, email: user.email, profilePic: user.profilePic, role: user.role },
       message: "Login successful",
     });
   } catch (err) {
-    console.error("❌ Login error:", err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -105,28 +98,23 @@ app.put(
       const userToUpdate = await UserModel.findOne({ email });
       if (!userToUpdate) return res.status(404).json({ error: "User not found" });
 
+      // ✅ Cloudinary gives full URL in req.file.path
       if (req.file) {
-        const profilePic = req.file.filename;
-        if (userToUpdate.profilePic) {
-          const oldFilePath = path.join(__dirname, "uploads", userToUpdate.profilePic);
-          fs.unlink(oldFilePath, (err) => {
-            if (err) console.error("Error deleting old file:", err);
-            else console.log("Old file deleted successfully");
-          });
+        // Delete old image from Cloudinary if exists
+        if (userToUpdate.profilePic && userToUpdate.profilePic.includes("cloudinary")) {
+          const publicId = "ghars-profiles/" + userToUpdate.profilePic.split("/").pop().split(".")[0];
+          await cloudinary.uploader.destroy(publicId);
         }
-        userToUpdate.profilePic = profilePic;
+        userToUpdate.profilePic = req.file.path; // Full Cloudinary URL
       }
 
-      // Update name
       userToUpdate.name = name;
 
-      // ✅ Only hash if a NEW password was provided
       if (password) {
         const isSamePassword = await bcrypt.compare(password, userToUpdate.password);
         if (!isSamePassword) {
           userToUpdate.password = await bcrypt.hash(password, 10);
         }
-        // if same password, don't touch it
       }
 
       await userToUpdate.save();
@@ -136,6 +124,7 @@ app.put(
     }
   }
 );
+
 // ── Save Order ─────────────────────────────────────
 app.post("/orders", async (req, res) => {
   try {
@@ -284,5 +273,3 @@ app.delete("/admin/posts/:id", async (req, res) => {
 // ── Start Server ───────────────────────────────────
 const port = ENV.PORT || 3001;
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
-console.log("CLIENT_URL:", ENV.CLIENT_URL);
-console.log("DB_USER:", ENV.DB_USER);

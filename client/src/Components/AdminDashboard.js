@@ -191,7 +191,7 @@ const AdminDashboard = () => {
                   <td>
                     <div className="admin-avatar">
                       {u.profilePic
-                        ? <img src={`${ENV.SERVER_URL}/uploads/${u.profilePic}`} alt="avatar" className="admin-avatar-img" />
+                        ? <img src={u.profilePic} alt="avatar" className="admin-avatar-img" />
                         : u.name?.charAt(0).toUpperCase()
                       }
                     </div>

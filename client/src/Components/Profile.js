@@ -13,8 +13,8 @@ const Profile = () => {
   const profilePic = useSelector((state) => state.users.user?.profilePic);
 
   const [orders, setOrders] = useState([]);
-  const picURL = profilePic ? `${ENV.SERVER_URL}/uploads/${profilePic}` : null;
-
+  const picURL = profilePic || null;
+  
   useEffect(() => {
     if (!email) { navigate("/login"); return; }
     fetch(`${ENV.SERVER_URL}/orders/${email}`)
